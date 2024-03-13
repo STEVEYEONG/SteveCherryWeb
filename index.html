@@ -32,7 +32,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="heart-svg">
                 <path fill="#ffeded" fill-opacity="1" d="M0,128L48,138.7C96,149,192,171,288,160C384,149,480,107,576,112C672,117,768,171,864,160C960,149,1056,75,1152,74.7C1248,75,1344,149,1392,186.7L1440,224L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
             </svg>
-            <h1>Steve <-> Che</h1>
+            <h1>Steve <-> Cherry</h1>
             <div id="result"></div>
         </div>
         <div class="right-frame">
@@ -73,7 +73,7 @@
             const passwordForm = document.getElementById('password-form');
             const passwordInput = document.getElementById('password');
             const errorMessage = document.getElementById('error-message');
-            const correctPassword = 'cherry'; // Replace 'your_password' with your actual password
+            const correctPassword = 'adminlocked'; // Replace 'your_password' with your actual password
             const loadingContainer = document.getElementById('loading-container');
             const lovestoryContainer = document.getElementById('lovestory-container');
 
@@ -85,7 +85,6 @@
                     // Redirect to the main webpage if the password is correct
                     loadingContainer.style.display = 'none';
                     lovestoryContainer.style.display = 'block';
-                    errorMessage.textContent = ''; // Reset error message
                 } else {
                     // Display an error message if the password is incorrect
                     errorMessage.textContent = 'Incorrect password. Please try again.';
