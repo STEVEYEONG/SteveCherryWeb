@@ -17,64 +17,57 @@ const language = {
 // Function to set language
 function setLanguage(lang) {
     const selectedLanguage = language[lang];
+    // Update elements with translated text
     document.getElementById('welcome-message').textContent = selectedLanguage.welcomeMessage;
     document.getElementById('password-label').textContent = selectedLanguage.passwordLabel;
     document.getElementById('enter-button').textContent = selectedLanguage.enterButton;
-    errorMessage.textContent = selectedLanguage.errorMessage;
+    document.getElementById('error-message').textContent = selectedLanguage.errorMessage;
 }
 
 // Default to English
 setLanguage('en');
 
-// Password form functionality remains the same
 document.addEventListener('DOMContentLoaded', function () {
     const passwordForm = document.getElementById('password-form');
-    const correctPassword = 'bb123'; // Replace with your actual password
+    const passwordInput = document.getElementById('password');
+    const errorMessage = document.getElementById('error-message');
+    const correctPassword = 'vcvc23'; // Replace 'your_password' with your actual password
 
+    // Event listener for form submission
     passwordForm.addEventListener('submit', function (event) {
         event.preventDefault();
-        const enteredPassword = document.getElementById('password').value.trim();
+        const enteredPassword = passwordInput.value.trim();
 
+        // Check if the entered password is correct
         if (enteredPassword === correctPassword) {
-            // Redirect to lovestory.html after a delay
-            setTimeout(() => {
-                window.location.href = 'lovestory.html';
-            }, 2000); // Adjust delay as needed
-
+            // Redirect to the main webpage if the password is correct
+            window.location.replace('lovestory.html');
         } else {
-            // Display error message for incorrect password
-            const errorMessage = document.getElementById('error-message');
+            // Display an error message if the password is incorrect
             errorMessage.textContent = 'Incorrect password. Please try again.';
         }
     });
 });
 
-
-
-
+// Function to calculate and display the difference between dates
 function updateDateDifference() {
     // Date provided from backend
-    var providedDate = new Date("2024-03-04"); // Replace this with the date from your backend
+    const providedDate = new Date("2024-03-04"); // Replace this with the date from your backend
 
     // Calculate the difference between the provided date and the current date
-    var timeDifference = Date.now() - providedDate.getTime();
+    const timeDifference = Date.now() - providedDate.getTime();
 
     // Convert milliseconds to days, hours, minutes, and seconds
-    var secondsDifference = Math.floor(timeDifference / 1000);
-    var minutesDifference = Math.floor(secondsDifference / 60);
-    var hoursDifference = Math.floor(minutesDifference / 60);
-    var daysDifference = Math.floor(hoursDifference / 24);
-
-    // Calculate remaining hours, minutes, and seconds
-    var remainingHours = hoursDifference % 24;
-    var remainingMinutes = minutesDifference % 60;
-    var remainingSeconds = secondsDifference % 60;
+    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hoursDifference = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutesDifference = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const secondsDifference = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
     // Construct the result string
-    var result = "Duration: " + daysDifference + " days, " + remainingHours + " hours, " + remainingMinutes + " minutes, " + remainingSeconds + " seconds";
+    const result = `Duration: ${daysDifference} days, ${hoursDifference} hours, ${minutesDifference} minutes, ${secondsDifference} seconds`;
 
     // Update the result in the HTML
-    document.getElementById("result").innerHTML = result;
+    document.getElementById("result").textContent = result;
 }
 
 // Update the time every second
@@ -87,15 +80,15 @@ updateDateDifference();
 function createPhoto() {
     const photo = document.createElement('img');
     const randomPhotoNumber = Math.floor(Math.random() * 10) + 1; // Adjust the range of numbers as needed
-    const photoPath = 'sources/photos/' + randomPhotoNumber + '.jpeg'; // Adjust the extension as needed
+    const photoPath = `sources/photos/${randomPhotoNumber}.jpeg`; // Adjust the extension as needed
     photo.src = photoPath;
     photo.classList.add('photo');
 
     // Position randomly within the viewport
     const randomLeft = Math.random() * window.innerWidth;
     const randomTop = Math.random() * window.innerHeight;
-    photo.style.left = randomLeft + 'px';
-    photo.style.top = randomTop + 'px';
+    photo.style.left = `${randomLeft}px`;
+    photo.style.top = `${randomTop}px`;
 
     document.body.appendChild(photo);
 
@@ -112,4 +105,3 @@ function createPhotoRain() {
 
 // Start the photo raining effect
 createPhotoRain();
-
