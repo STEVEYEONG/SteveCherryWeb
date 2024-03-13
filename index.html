@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading Page</title>
+    <title>Love Story</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
         <button onclick="setLanguage('vi')" class="language-button">Vietnamese</button>
     </div>
 
-    <div class="loading-container">
+    <div class="loading-container" id="loading-container">
         <form id="password-form" class="password-form">
             <h2 id="welcome-message"></h2>
             <label for="password" id="password-label"></label>
@@ -22,6 +22,133 @@
         </form>
     </div>
 
-    <script src="script.js"></script>
+    <div class="container" id="lovestory-container" style="display: none;">
+        <div class="left-frame">
+            <!-- Left Frame Content -->
+        </div>
+        <div class="middle-section">
+            <!-- Middle Section Content -->
+            <div class="love-animation"></div> <!-- Add heart animation here -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="heart-svg">
+                <path fill="#ffeded" fill-opacity="1" d="M0,128L48,138.7C96,149,192,171,288,160C384,149,480,107,576,112C672,117,768,171,864,160C960,149,1056,75,1152,74.7C1248,75,1344,149,1392,186.7L1440,224L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+            </svg>
+            <h1>Steve <-> Che</h1>
+            <div id="result"></div>
+        </div>
+        <div class="right-frame">
+            <!-- Right Frame Content -->
+        </div>
+    </div>
+
+    <script>
+        // Language object containing translations
+        const language = {
+            en: {
+                welcomeMessage: "Welcome to our Love Story",
+                passwordLabel: "Enter the password:",
+                enterButton: "Enter",
+                errorMessage: "Incorrect password. Please try again."
+            },
+            vi: {
+                welcomeMessage: "Chào mừng bạn đến với câu chuyện tình yêu của chúng tôi",
+                passwordLabel: "Nhập mật khẩu:",
+                enterButton: "Nhập",
+                errorMessage: "Mật khẩu không đúng. Vui lòng thử lại."
+            }
+        };
+
+        // Function to set language
+        function setLanguage(lang) {
+            const selectedLanguage = language[lang];
+            document.getElementById('welcome-message').textContent = selectedLanguage.welcomeMessage;
+            document.getElementById('password-label').textContent = selectedLanguage.passwordLabel;
+            document.getElementById('enter-button').textContent = selectedLanguage.enterButton;
+            document.getElementById('error-message').textContent = selectedLanguage.errorMessage;
+        }
+
+        // Default to English
+        setLanguage('en');
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const passwordForm = document.getElementById('password-form');
+            const passwordInput = document.getElementById('password');
+            const errorMessage = document.getElementById('error-message');
+            const correctPassword = 'cherry'; // Replace 'your_password' with your actual password
+            const loadingContainer = document.getElementById('loading-container');
+            const lovestoryContainer = document.getElementById('lovestory-container');
+
+            passwordForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const enteredPassword = passwordInput.value.trim();
+
+                if (enteredPassword === correctPassword) {
+                    // Redirect to the main webpage if the password is correct
+                    loadingContainer.style.display = 'none';
+                    lovestoryContainer.style.display = 'block';
+                    errorMessage.textContent = ''; // Reset error message
+                } else {
+                    // Display an error message if the password is incorrect
+                    errorMessage.textContent = 'Incorrect password. Please try again.';
+                }
+            });
+        });
+
+        // Function to calculate and display the difference between dates
+        function updateDateDifference() {
+            // Date provided from backend
+            const providedDate = new Date("2024-03-04"); // Replace this with the date from your backend
+
+            // Calculate the difference between the provided date and the current date
+            const timeDifference = Date.now() - providedDate.getTime();
+
+            // Convert milliseconds to days, hours, minutes, and seconds
+            const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hoursDifference = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutesDifference = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const secondsDifference = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            // Construct the result string
+            const result = `Duration: ${daysDifference} days, ${hoursDifference} hours, ${minutesDifference} minutes, ${secondsDifference} seconds`;
+
+            // Update the result in the HTML
+            document.getElementById("result").textContent = result;
+        }
+
+        // Update the time every second
+        setInterval(updateDateDifference, 1000);
+
+        // Initial update when page loads
+        updateDateDifference();
+
+        // Function to create and append a photo element across the webpage
+        function createPhoto() {
+            const photo = document.createElement('img');
+            const randomPhotoNumber = Math.floor(Math.random() * 10) + 1; // Adjust the range of numbers as needed
+            const photoPath = `sources/photos/${randomPhotoNumber}.jpeg`; // Adjust the extension as needed
+            photo.src = photoPath;
+            photo.classList.add('photo');
+
+            // Position randomly within the viewport
+            const randomLeft = Math.random() * window.innerWidth;
+            const randomTop = Math.random() * window.innerHeight;
+            photo.style.left = `${randomLeft}px`;
+            photo.style.top = `${randomTop}px`;
+
+            document.body.appendChild(photo);
+
+            // Remove photo after animation completes
+            photo.addEventListener('animationend', () => {
+                photo.remove();
+            });
+        }
+
+        // Function to create raining effect with photos across the webpage
+        function createPhotoRain() {
+            setInterval(createPhoto, 300); // Adjust interval as needed
+        }
+
+        // Start the photo raining effect
+        createPhotoRain();
+    </script>
 </body>
 </html>
