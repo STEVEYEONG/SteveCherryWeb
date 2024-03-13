@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="language-container">
+        <button onclick="setLanguage('en')" class="language-button">English</button>
+        <button onclick="setLanguage('vi')" class="language-button">Vietnamese</button>
+    </div>
+
+    <div class="loading-container">
+        <form id="password-form" class="password-form">
+            <h2 id="welcome-message"></h2>
+            <label for="password" id="password-label"></label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit" id="enter-button"></button>
+            <p id="error-message" class="error-message"></p>
+        </form>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
