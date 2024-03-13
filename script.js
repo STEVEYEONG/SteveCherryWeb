@@ -29,20 +29,19 @@ setInterval(updateDateDifference, 1000);
 // Initial update when page loads
 updateDateDifference();
 
-// Function to create and append a photo element
+// Function to create and append a photo element across the webpage
 function createPhoto() {
     const photo = document.createElement('img');
-    const photoPath = 'sources/photos/photo' + Math.floor(Math.random() * 10) + '.jpeg'; // Adjust the number of photos as needed
+    const randomPhotoNumber = Math.floor(Math.random() * 10) + 1; // Adjust the range of numbers as needed
+    const photoPath = 'sources/photos/' + randomPhotoNumber + '.jpeg'; // Adjust the extension as needed
     photo.src = photoPath;
     photo.classList.add('photo');
 
-    // Randomize position for left or right frame
-    const randomPosition = Math.random() * 100;
-    if (randomPosition < 50) {
-        photo.style.left = Math.random() * 100 + '%';
-    } else {
-        photo.style.right = Math.random() * 100 + '%';
-    }
+    // Position randomly within the viewport
+    const randomLeft = Math.random() * window.innerWidth;
+    const randomTop = Math.random() * window.innerHeight;
+    photo.style.left = randomLeft + 'px';
+    photo.style.top = randomTop + 'px';
 
     document.body.appendChild(photo);
 
@@ -52,7 +51,7 @@ function createPhoto() {
     });
 }
 
-// Function to create raining effect with photos
+// Function to create raining effect with photos across the webpage
 function createPhotoRain() {
     setInterval(createPhoto, 300); // Adjust interval as needed
 }
