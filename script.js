@@ -32,7 +32,7 @@ updateDateDifference();
 // Function to create and append a photo element
 function createPhoto() {
     const photo = document.createElement('img');
-    const photoPath = 'sources/photos/photo' + Math.floor(Math.random() * 10) + '.jpg'; // Adjust the number of photos as needed
+    const photoPath = 'sources/photos/photo' + Math.floor(Math.random() * 10) + '.jpeg'; // Adjust the number of photos as needed
     photo.src = photoPath;
     photo.classList.add('photo');
 
